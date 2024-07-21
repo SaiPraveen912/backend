@@ -42,7 +42,7 @@ pipeline {
 
         stage('Sonar Scan') {
             environment {
-                scannerHome = tool 'sonar-6.0' //referring scanner CLI
+                scannerHome = tool 'sonar-6.0' //referring scanner CLI 
             }
             steps {
                 script {

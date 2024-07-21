@@ -40,18 +40,18 @@ pipeline {
             }
         }
 
-        stage('Sonar Scan') {
-            environment {
-                scannerHome = tool 'sonar' //referring scanner CLI 
-            }
-            steps {
-                script {
-                    withSonarQubeEnv('sonar') { //referring sonar server
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
-                }
-            }
-        }
+        // stage('Sonar Scan') {
+        //     environment {
+        //         scannerHome = tool 'sonar' //referring scanner CLI 
+        //     }
+        //     steps {
+        //         script {
+        //             withSonarQubeEnv('sonar') { //referring sonar server
+        //                 sh "${scannerHome}/bin/sonar-scanner"
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Nexus Artifact Upload') {
             steps {
@@ -75,16 +75,16 @@ pipeline {
             }
         }
 
-        // stage('Deploy') {
-        //     steps {
-        //         script{
-        //             def params = [
-        //                 string(name: 'appVersion', value: "${appVersion}") 
-        //             ]
-        //             build job: 'backend-deploy', parameters: params, wait: false
-        //         }  
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                script{
+                    def params = [
+                        string(name: 'appVersion', value: "${appVersion}") 
+                    ]
+                    build job: 'backend-deploy', parameters: params, wait: false
+                }  
+            }
+        }
 
 
     }
